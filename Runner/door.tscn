@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=3 uid="uid://bb46xgcad0jed"]
+
+[ext_resource type="Script" path="res://door.gd" id="1_nh5pv"]
+[ext_resource type="Texture2D" uid="uid://bej0x4c2tetfs" path="res://Models/Pole.png" id="1_vpb45"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7p6nb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_miob8"]
+albedo_texture = ExtResource("1_vpb45")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qkag4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ovai"]
+albedo_texture = ExtResource("1_vpb45")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6btnh"]
+albedo_texture = ExtResource("1_vpb45")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bivtj"]
+albedo_texture = ExtResource("1_vpb45")
+
+[sub_resource type="SphereMesh" id="SphereMesh_d8ptq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ewvil"]
+albedo_texture = ExtResource("1_vpb45")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_o8rrl"]
+
+[node name="Door" type="StaticBody3D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_nh5pv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 3.2, 0, 0, 0, 4.2, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_7p6nb")
+
+[node name="Top_Pole" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-08, -0.2, 0, 2, -8.74228e-09, 0, 3, 0)
+material_override = SubResource("StandardMaterial3D_miob8")
+mesh = SubResource("CylinderMesh_qkag4")
+skeleton = NodePath("../Right_Pole")
+
+[node name="Left_Pole" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 1.5, 0, 0, 0, 0.2, 0, 1.5, 2)
+material_override = SubResource("StandardMaterial3D_0ovai")
+mesh = SubResource("CylinderMesh_qkag4")
+
+[node name="Right_Pole" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 1.5, 0, 0, 0, 0.2, 0, 1.5, -2)
+material_override = SubResource("StandardMaterial3D_6btnh")
+mesh = SubResource("CylinderMesh_qkag4")
+
+[node name="Left_Corner_Ball" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3, 2)
+material_override = SubResource("StandardMaterial3D_bivtj")
+mesh = SubResource("SphereMesh_d8ptq")
+
+[node name="Right_Corner_Ball" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3, -2)
+material_override = SubResource("StandardMaterial3D_ewvil")
+mesh = SubResource("SphereMesh_d8ptq")
+
+[node name="Door" type="MeshInstance3D" parent="."]
+transform = Transform3D(-8.74228e-08, -2, 6.55671e-08, 0, -8.74228e-08, -1.5, 2, -8.74228e-08, 2.86603e-15, 0, 1.5, 0)
+mesh = SubResource("PlaneMesh_o8rrl")
