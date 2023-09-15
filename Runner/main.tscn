@@ -1,0 +1,110 @@
+[gd_scene load_steps=12 format=3 uid="uid://d1qnkhs0aeye7"]
+
+[ext_resource type="Texture2D" uid="uid://5t7exv1m7uum" path="res://Models/Grass.png" id="1_y4g1d"]
+[ext_resource type="PackedScene" uid="uid://b7m60oh42mvy8" path="res://player_bah.tscn" id="2_5uucg"]
+[ext_resource type="PackedScene" uid="uid://bb46xgcad0jed" path="res://door.tscn" id="3_pc2xy"]
+[ext_resource type="Script" path="res://HUD.gd" id="4_j04lm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yje8b"]
+size = Vector3(100, 2, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqgxw"]
+albedo_texture = ExtResource("1_y4g1d")
+
+[sub_resource type="BoxMesh" id="BoxMesh_goj55"]
+size = Vector3(100, 2, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j3awa"]
+size = Vector3(100, 4, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1d1ws"]
+albedo_texture = ExtResource("1_y4g1d")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ycu3t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b0cjn"]
+albedo_texture = ExtResource("1_y4g1d")
+
+[node name="Main" type="Node"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_yje8b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("StandardMaterial3D_iqgxw")
+mesh = SubResource("BoxMesh_goj55")
+
+[node name="Map Border" type="Node3D" parent="Ground"]
+
+[node name="Right_Cylinder" type="StaticBody3D" parent="Ground/Map Border"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Map Border/Right_Cylinder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+shape = SubResource("BoxShape3D_j3awa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/Map Border/Right_Cylinder"]
+transform = Transform3D(-8.74228e-08, -50, 0, 2, -2.18557e-06, 0, 0, 0, 2, 0, -1, -5)
+material_override = SubResource("StandardMaterial3D_1d1ws")
+mesh = SubResource("CylinderMesh_ycu3t")
+skeleton = NodePath("../..")
+
+[node name="Left_Cylinder" type="StaticBody3D" parent="Ground/Map Border"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Map Border/Left_Cylinder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+shape = SubResource("BoxShape3D_j3awa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/Map Border/Left_Cylinder"]
+transform = Transform3D(-8.74228e-08, -50, 0, 2, -2.18557e-06, 0, 0, 0, 2, 0, -1, 5)
+material_override = SubResource("StandardMaterial3D_b0cjn")
+mesh = SubResource("CylinderMesh_ycu3t")
+skeleton = NodePath("../..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.71623, -0.137022, 0.68428, -0.284301, 0.838189, 0.465417, -0.637328, -0.527887, 0.56138, 4.88491, 7.11008, 8.82858)
+
+[node name="Player-bah" parent="." instance=ExtResource("2_5uucg")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6, 0.75, 0)
+
+[node name="Camera" type="Marker3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Camera"]
+transform = Transform3D(-4.37114e-08, -0.258819, 0.965926, 0, 0.965926, 0.258819, -1, 1.13133e-08, -4.2222e-08, 10, 4, 0)
+
+[node name="Door" parent="." instance=ExtResource("3_pc2xy")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -40, 0, 2.5)
+collision_mask = 2
+
+[node name="Door2" parent="." instance=ExtResource("3_pc2xy")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -40, 0, -2.5)
+collision_mask = 2
+
+[node name="Label" type="Node2D" parent="."]
+script = ExtResource("4_j04lm")
+questions = null
+
+[node name="Label" type="Label" parent="Label"]
+offset_top = 192.0
+offset_right = 192.0
+offset_bottom = 384.0
+text = "Math"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Answer_1" type="Label3D" parent="Label"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40, 4, -2.5)
+layers = 2
+pixel_size = 0.02
+text = "Answer 1"
+
+[node name="Answer_2" type="Label3D" parent="Label"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40, 4, 2.5)
+layers = 2
+pixel_size = 0.02
+text = "Answer 2"
