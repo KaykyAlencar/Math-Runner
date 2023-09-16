@@ -7,8 +7,10 @@ extends Node2D #Must extend the same type as the node that will use it
 
 #Label is a descendant from Node
 @export var labelWithProblem:Label  
-@export var labelWithAnswerOne:Label      
-@export var labelWithAnswerTwo:Label      
+@export var labelWithAnswerOne:Label3D      
+@export var labelWithAnswerTwo:Label3D    
+@export var labelForAnswerOne:Label3D
+@export var labelForAnswerTwo:Label3D  
   
 #A Dictionary can contain any amount of pairs of keys and values.   
 #Each element in a pair is separated by a ":" and the pair terminated with a ","    

@@ -5,7 +5,7 @@ extends CharacterBody3D
 
 var target_velocity = Vector3.ZERO
 
-
+@warning_ignore("unused_parameter")
 func _physics_process(delta):
 	var direction = Vector3.ZERO
 

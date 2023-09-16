@@ -26,41 +26,109 @@ albedo_texture = ExtResource("1_vpb45")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_o8rrl"]
 
-[node name="Door" type="StaticBody3D"]
-collision_layer = 2
-collision_mask = 0
+[node name="Door-1" type="Node3D" node_paths=PackedStringArray("labelWithAnswerOne", "labelWithAnswerTwo", "labelOneDetector", "labelTwoDetector")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 script = ExtResource("1_nh5pv")
+labelWithAnswerOne = NodePath("Label3D-1")
+labelWithAnswerTwo = NodePath("Door-2/Body-2/Label3D-2")
+labelOneDetector = NodePath("Body-1")
+labelTwoDetector = NodePath("Door-2/Body-2")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="Body-1" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body-1"]
 transform = Transform3D(0.2, 0, 0, 0, 3.2, 0, 0, 0, 4.2, 0, 1.5, 0)
 shape = SubResource("BoxShape3D_7p6nb")
 
-[node name="Top_Pole" type="MeshInstance3D" parent="."]
+[node name="Label3D-1" type="Label3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 4, 0)
+pixel_size = 0.02
+text = "Answer 1"
+
+[node name="3D-Mesh\'s" type="Node3D" parent="."]
+
+[node name="Top_Pole" type="MeshInstance3D" parent="3D-Mesh\'s"]
 transform = Transform3D(0.2, 0, 0, 0, -8.74228e-08, -0.2, 0, 2, -8.74228e-09, 0, 3, 0)
 material_override = SubResource("StandardMaterial3D_miob8")
 mesh = SubResource("CylinderMesh_qkag4")
 skeleton = NodePath("../Right_Pole")
 
-[node name="Left_Pole" type="MeshInstance3D" parent="."]
+[node name="Left_Pole" type="MeshInstance3D" parent="3D-Mesh\'s"]
 transform = Transform3D(0.2, 0, 0, 0, 1.5, 0, 0, 0, 0.2, 0, 1.5, 2)
 material_override = SubResource("StandardMaterial3D_0ovai")
 mesh = SubResource("CylinderMesh_qkag4")
+skeleton = NodePath("../..")
 
-[node name="Right_Pole" type="MeshInstance3D" parent="."]
+[node name="Right_Pole" type="MeshInstance3D" parent="3D-Mesh\'s"]
 transform = Transform3D(0.2, 0, 0, 0, 1.5, 0, 0, 0, 0.2, 0, 1.5, -2)
 material_override = SubResource("StandardMaterial3D_6btnh")
 mesh = SubResource("CylinderMesh_qkag4")
+skeleton = NodePath("../..")
 
-[node name="Left_Corner_Ball" type="MeshInstance3D" parent="."]
+[node name="Left_Corner_Ball" type="MeshInstance3D" parent="3D-Mesh\'s"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3, 2)
 material_override = SubResource("StandardMaterial3D_bivtj")
 mesh = SubResource("SphereMesh_d8ptq")
+skeleton = NodePath("../..")
 
-[node name="Right_Corner_Ball" type="MeshInstance3D" parent="."]
+[node name="Right_Corner_Ball" type="MeshInstance3D" parent="3D-Mesh\'s"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3, -2)
 material_override = SubResource("StandardMaterial3D_ewvil")
 mesh = SubResource("SphereMesh_d8ptq")
+skeleton = NodePath("../..")
 
-[node name="Door" type="MeshInstance3D" parent="."]
+[node name="Door" type="MeshInstance3D" parent="3D-Mesh\'s"]
 transform = Transform3D(-8.74228e-08, -2, 6.55671e-08, 0, -8.74228e-08, -1.5, 2, -8.74228e-08, 2.86603e-15, 0, 1.5, 0)
 mesh = SubResource("PlaneMesh_o8rrl")
+skeleton = NodePath("../..")
+
+[node name="Door-2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="Body-2" type="Area3D" parent="Door-2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door-2/Body-2"]
+transform = Transform3D(0.2, 0, 0, 0, 3.2, 0, 0, 0, 4.2, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_7p6nb")
+
+[node name="Label3D-2" type="Label3D" parent="Door-2/Body-2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 4, 0)
+pixel_size = 0.02
+text = "Answer 2"
+
+[node name="3D-Mesh\'s" type="Node3D" parent="Door-2/Body-2"]
+
+[node name="Top_Pole" type="MeshInstance3D" parent="Door-2/Body-2/3D-Mesh\'s"]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-08, -0.2, 0, 2, -8.74228e-09, 0, 3, 0)
+material_override = SubResource("StandardMaterial3D_miob8")
+mesh = SubResource("CylinderMesh_qkag4")
+skeleton = NodePath("../Right_Pole")
+
+[node name="Left_Pole" type="MeshInstance3D" parent="Door-2/Body-2/3D-Mesh\'s"]
+transform = Transform3D(0.2, 0, 0, 0, 1.5, 0, 0, 0, 0.2, 0, 1.5, 2)
+material_override = SubResource("StandardMaterial3D_0ovai")
+mesh = SubResource("CylinderMesh_qkag4")
+skeleton = NodePath("../..")
+
+[node name="Right_Pole" type="MeshInstance3D" parent="Door-2/Body-2/3D-Mesh\'s"]
+transform = Transform3D(0.2, 0, 0, 0, 1.5, 0, 0, 0, 0.2, 0, 1.5, -2)
+material_override = SubResource("StandardMaterial3D_6btnh")
+mesh = SubResource("CylinderMesh_qkag4")
+skeleton = NodePath("../..")
+
+[node name="Left_Corner_Ball" type="MeshInstance3D" parent="Door-2/Body-2/3D-Mesh\'s"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3, 2)
+material_override = SubResource("StandardMaterial3D_bivtj")
+mesh = SubResource("SphereMesh_d8ptq")
+skeleton = NodePath("../..")
+
+[node name="Right_Corner_Ball" type="MeshInstance3D" parent="Door-2/Body-2/3D-Mesh\'s"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 3, -2)
+material_override = SubResource("StandardMaterial3D_ewvil")
+mesh = SubResource("SphereMesh_d8ptq")
+skeleton = NodePath("../..")
+
+[node name="Door" type="MeshInstance3D" parent="Door-2/Body-2/3D-Mesh\'s"]
+transform = Transform3D(-8.74228e-08, -2, 6.55671e-08, 0, -8.74228e-08, -1.5, 2, -8.74228e-08, 2.86603e-15, 0, 1.5, 0)
+mesh = SubResource("PlaneMesh_o8rrl")
+skeleton = NodePath("../..")
