@@ -13,18 +13,29 @@ func _process(delta):
 #separated by a ":", the type that will reside in the variable.  
 #If the type is of "Node" (or a descendant of it) you can set a reference to it with the variable
 
-#Label is a descendant from Node
-@export var labelWithProblem:Label  
+#Label is a descendant from Node 
 @export var labelWithAnswerOne:Label3D      
 @export var labelWithAnswerTwo:Label3D
-@export var labelForAnswerOne:Label3D
-@export var labelForAnswerTwo:Label3D      
+@onready var labelForAnswerOne:Label3D = $"Label3D-1"
+@onready var labelForAnswerTwo:Label3D = $"Door-2/Body-2/Label3D-2"
   
 #A Dictionary can contain any amount of pairs of keys and values.   
 #Each element in a pair is separated by a ":" and the pair terminated with a ","    
 @export var questions:Dictionary = {  
-"What is 23x-1?" : "-23",  
-"100x0.5?" : "50",  
+#math problem and results
+"23x-1?" : "-23",  
+"100x0,5?" : "50",  
+"19+47?" : "66",
+"32x6?" : "192",
+"27-8?" : "19",
+"4-12?" : "-8",
+"8/3?" : "2,66",
+"10x11?" : "110",
+"17+11?" : "28",
+"69x1?" : "69",
+"78/2?" : "39",
+"77+33" : "110",
+"39-39" : "0",
 
 }    
 
@@ -51,15 +62,13 @@ func get_wrong_answer(question:String)->String:
 
 	#You can specify what elements an Array can contain by putting it inside []'s  
 
-	var answers:Array[String] = questions.values()    
+	var answers:Array = questions.values()    
 
 	#Remove the correct answer from the list  
 	answers.erase( get_answer_to_question(question) )	  
 	return answers.pick_random()
 
-func present_question():      
-	var question:String = get_random_question()  
-
+func present_question( question:String ):
 
 	#randi() % 1 equals a random number between 0 and 1 
 	if randi() % 1 == 1:  
