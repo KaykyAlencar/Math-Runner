@@ -1,28 +1,34 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1qnkhs0aeye7"]
+[gd_scene load_steps=16 format=3 uid="uid://d1qnkhs0aeye7"]
 
 [ext_resource type="Texture2D" uid="uid://5t7exv1m7uum" path="res://Models/Grass.png" id="1_y4g1d"]
 [ext_resource type="Script" path="res://main.gd" id="1_yqevp"]
 [ext_resource type="PackedScene" uid="uid://b7m60oh42mvy8" path="res://player_bah.tscn" id="2_5uucg"]
+[ext_resource type="Script" path="res://Meshs.gd" id="2_71kqe"]
+[ext_resource type="Texture2D" uid="uid://cjtr6r85h03g" path="res://Models/Path.png" id="3_36m07"]
 [ext_resource type="PackedScene" uid="uid://bb46xgcad0jed" path="res://door.tscn" id="3_pc2xy"]
+[ext_resource type="PackedScene" uid="uid://h1870gqdj8hw" path="res://back_ground.tscn" id="3_qo6cm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yje8b"]
 size = Vector3(100, 2, 10)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqgxw"]
-albedo_texture = ExtResource("1_y4g1d")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_focfo"]
+albedo_texture = ExtResource("3_36m07")
 
 [sub_resource type="BoxMesh" id="BoxMesh_goj55"]
 size = Vector3(100, 2, 10)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ru7d1"]
+albedo_texture = ExtResource("3_36m07")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_j3awa"]
 size = Vector3(100, 4, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1d1ws"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b0cjn"]
 albedo_texture = ExtResource("1_y4g1d")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ycu3t"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b0cjn"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1d1ws"]
 albedo_texture = ExtResource("1_y4g1d")
 
 [node name="Main" type="Node" node_paths=PackedStringArray("currentDoor", "questionLabel")]
@@ -38,34 +44,62 @@ collision_mask = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 shape = SubResource("BoxShape3D_yje8b")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+[node name="Meshs" type="Node3D" parent="Ground"]
+script = ExtResource("2_71kqe")
+groundSpacing = 50.0
+
+[node name="Back_Ground" parent="Ground/Meshs" instance=ExtResource("3_qo6cm")]
+
+[node name="2Back_Ground" parent="Ground/Meshs" instance=ExtResource("3_qo6cm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, 0)
+
+[node name="Middle_Ground" type="MeshInstance3D" parent="Ground/Meshs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-material_override = SubResource("StandardMaterial3D_iqgxw")
+material_override = SubResource("StandardMaterial3D_focfo")
 mesh = SubResource("BoxMesh_goj55")
+skeleton = NodePath("../..")
 
-[node name="Map Border" type="Node3D" parent="Ground"]
+[node name="2Middle_Ground" type="MeshInstance3D" parent="Ground/Meshs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, -1, 0)
+material_override = SubResource("StandardMaterial3D_ru7d1")
+mesh = SubResource("BoxMesh_goj55")
+skeleton = NodePath("../..")
 
-[node name="Right_Cylinder" type="StaticBody3D" parent="Ground/Map Border"]
+[node name="Map Border" type="Node3D" parent="Ground/Meshs"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Map Border/Right_Cylinder"]
+[node name="Right_Cylinder" type="StaticBody3D" parent="Ground/Meshs/Map Border"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Meshs/Map Border/Right_Cylinder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 shape = SubResource("BoxShape3D_j3awa")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/Map Border/Right_Cylinder"]
-transform = Transform3D(-8.74228e-08, -50, 0, 2, -2.18557e-06, 0, 0, 0, 2, 0, -1, -5)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Ground/Meshs/Map Border/Right_Cylinder"]
+transform = Transform3D(-1.31134e-07, -50, 0, 3, -2.18557e-06, 0, 0, 0, 2, 0, -1, 5)
+material_override = SubResource("StandardMaterial3D_b0cjn")
+mesh = SubResource("CylinderMesh_ycu3t")
+skeleton = NodePath("../..")
+
+[node name="2MeshInstance3D" type="MeshInstance3D" parent="Ground/Meshs/Map Border/Right_Cylinder"]
+transform = Transform3D(-1.31134e-07, -50, 0, 3, -2.18557e-06, 0, 0, 0, 2, -50, -1, 5)
+material_override = SubResource("StandardMaterial3D_b0cjn")
+mesh = SubResource("CylinderMesh_ycu3t")
+skeleton = NodePath("../..")
+
+[node name="Left_Cylinder" type="StaticBody3D" parent="Ground/Meshs/Map Border"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Meshs/Map Border/Left_Cylinder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+shape = SubResource("BoxShape3D_j3awa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/Meshs/Map Border/Left_Cylinder"]
+transform = Transform3D(-1.31134e-07, -50, 0, 3, -2.18557e-06, 0, 0, 0, 2, 0, -1, -5)
 material_override = SubResource("StandardMaterial3D_1d1ws")
 mesh = SubResource("CylinderMesh_ycu3t")
 skeleton = NodePath("../..")
 
-[node name="Left_Cylinder" type="StaticBody3D" parent="Ground/Map Border"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Map Border/Left_Cylinder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
-shape = SubResource("BoxShape3D_j3awa")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/Map Border/Left_Cylinder"]
-transform = Transform3D(-8.74228e-08, -50, 0, 2, -2.18557e-06, 0, 0, 0, 2, 0, -1, 5)
-material_override = SubResource("StandardMaterial3D_b0cjn")
+[node name="2MeshInstance3D" type="MeshInstance3D" parent="Ground/Meshs/Map Border/Left_Cylinder"]
+transform = Transform3D(-1.31134e-07, -50, 0, 3, -2.18557e-06, 0, 0, 0, 2, -50, -1, -5)
+material_override = SubResource("StandardMaterial3D_1d1ws")
 mesh = SubResource("CylinderMesh_ycu3t")
 skeleton = NodePath("../..")
 
@@ -99,7 +133,11 @@ text = "SCORE"
 horizontal_alignment = 1
 
 [node name="Restart-Button" type="Button" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 464.0
+offset_top = 424.0
+offset_right = 656.0
+offset_bottom = 512.0
+disabled = true
+text = "Restart"
 
 [connection signal="pressed" from="Restart-Button" to="." method="restart"]

@@ -1,5 +1,6 @@
 extends Node
 
+@onready var restartButton:Button = $"Restart-Button"
 @export var currentDoor:QuizDoor
 
 @onready var scoreLabel:Label = $Score
@@ -12,6 +13,7 @@ var score:int
 func _ready():
   prepare_door()
   currentDoor.answer_chosen.connect(on_answer_chosen)
+  restartButton.pressed.connect(restart)
 
 func restart():
   get_tree().change_scene_to_file("res://main.gd")
@@ -46,6 +48,8 @@ func on_answer_chosen(answer:String):
   else:
    print("Wrong")
    get_tree().change_scene_to_file("res://main.tscn")
+   restartButton.show()
+   restartButton.disabled = false
 
   #Depending on how the stage moves, you may have to change the shift in position
   #This just moves it "forward" by 40 units.

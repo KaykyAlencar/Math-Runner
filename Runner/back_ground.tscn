@@ -1,0 +1,143 @@
+[gd_scene load_steps=13 format=3 uid="uid://h1870gqdj8hw"]
+
+[ext_resource type="Texture2D" uid="uid://244yc732cqf4" path="res://Models/Tree-Trunk.png" id="1_mpsw6"]
+[ext_resource type="Texture2D" uid="uid://5t7exv1m7uum" path="res://Models/Grass.png" id="2_cbypn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skkik"]
+albedo_texture = ExtResource("1_mpsw6")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pwv75"]
+height = 4.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2hrcl"]
+albedo_texture = ExtResource("2_cbypn")
+
+[sub_resource type="SphereMesh" id="SphereMesh_cwbfu"]
+radius = 2.0
+height = 4.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gjgg"]
+albedo_texture = ExtResource("2_cbypn")
+
+[sub_resource type="SphereMesh" id="SphereMesh_m0ugy"]
+radius = 2.0
+height = 2.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l2hx6"]
+albedo_texture = ExtResource("2_cbypn")
+
+[sub_resource type="SphereMesh" id="SphereMesh_f7cb4"]
+radius = 2.0
+height = 2.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ktess"]
+albedo_texture = ExtResource("2_cbypn")
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ecc0"]
+size = Vector3(100, 2, 5)
+
+[node name="Back_Ground" type="Node3D"]
+
+[node name="Tree" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="Trunk" type="MeshInstance3D" parent="Tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_skkik")
+mesh = SubResource("CylinderMesh_pwv75")
+skeleton = NodePath("")
+
+[node name="Leaf" type="MeshInstance3D" parent="Tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+material_override = SubResource("StandardMaterial3D_2hrcl")
+mesh = SubResource("SphereMesh_cwbfu")
+
+[node name="Leaf2" type="MeshInstance3D" parent="Tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.25, 0)
+material_override = SubResource("StandardMaterial3D_7gjgg")
+mesh = SubResource("SphereMesh_m0ugy")
+
+[node name="Leaf2(2)" type="MeshInstance3D" parent="Tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+material_override = SubResource("StandardMaterial3D_l2hx6")
+mesh = SubResource("SphereMesh_f7cb4")
+
+[node name="Tree2" type="Node3D" parent="."]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 5, -1, 10)
+
+[node name="Trunk" type="MeshInstance3D" parent="Tree2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_skkik")
+mesh = SubResource("CylinderMesh_pwv75")
+skeleton = NodePath("")
+
+[node name="Leaf" type="MeshInstance3D" parent="Tree2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+material_override = SubResource("StandardMaterial3D_2hrcl")
+mesh = SubResource("SphereMesh_cwbfu")
+
+[node name="Leaf2" type="MeshInstance3D" parent="Tree2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.25, 0)
+material_override = SubResource("StandardMaterial3D_7gjgg")
+mesh = SubResource("SphereMesh_m0ugy")
+
+[node name="Leaf2(2)" type="MeshInstance3D" parent="Tree2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+material_override = SubResource("StandardMaterial3D_l2hx6")
+mesh = SubResource("SphereMesh_f7cb4")
+
+[node name="Tree3" type="Node3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -15, 0, 9)
+
+[node name="Trunk" type="MeshInstance3D" parent="Tree3"]
+transform = Transform3D(0.8, 0, 0, 0, 1, 0, 0, 0, 0.8, 0.0325174, 2.0392, 0.0249381)
+material_override = SubResource("StandardMaterial3D_skkik")
+mesh = SubResource("CylinderMesh_pwv75")
+skeleton = NodePath("")
+
+[node name="Leaf" type="MeshInstance3D" parent="Tree3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+material_override = SubResource("StandardMaterial3D_2hrcl")
+mesh = SubResource("SphereMesh_cwbfu")
+
+[node name="Leaf2" type="MeshInstance3D" parent="Tree3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.25, 0)
+material_override = SubResource("StandardMaterial3D_7gjgg")
+mesh = SubResource("SphereMesh_m0ugy")
+
+[node name="Leaf2(2)" type="MeshInstance3D" parent="Tree3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+material_override = SubResource("StandardMaterial3D_l2hx6")
+mesh = SubResource("SphereMesh_f7cb4")
+
+[node name="Tree4" type="Node3D" parent="."]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -8, -1, 6)
+
+[node name="Trunk" type="MeshInstance3D" parent="Tree4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_skkik")
+mesh = SubResource("CylinderMesh_pwv75")
+skeleton = NodePath("")
+
+[node name="Leaf" type="MeshInstance3D" parent="Tree4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+material_override = SubResource("StandardMaterial3D_2hrcl")
+mesh = SubResource("SphereMesh_cwbfu")
+
+[node name="Leaf2" type="MeshInstance3D" parent="Tree4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.25, 0)
+material_override = SubResource("StandardMaterial3D_7gjgg")
+mesh = SubResource("SphereMesh_m0ugy")
+
+[node name="Leaf2(2)" type="MeshInstance3D" parent="Tree4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+material_override = SubResource("StandardMaterial3D_l2hx6")
+mesh = SubResource("SphereMesh_f7cb4")
+
+[node name="Ground" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+material_override = SubResource("StandardMaterial3D_ktess")
+mesh = SubResource("BoxMesh_5ecc0")

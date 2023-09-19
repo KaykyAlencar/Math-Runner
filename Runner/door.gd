@@ -30,7 +30,7 @@ func _process(delta):
 "27-8?" : "19",
 "4-12?" : "-8",
 "8/3?" : "2,66",
-"10x11?" : "110",
+"10x11,9?" : "119",
 "17+11?" : "28",
 "69x1?" : "69",
 "78/2?" : "39",
@@ -71,7 +71,7 @@ func get_wrong_answer(question:String)->String:
 func present_question( question:String ):
 
 	#randi() % 1 equals a random number between 0 and 1 
-	if randi() % 1 == 1:  
+	if randf() > 0.5: 
 		labelForAnswerOne.text = get_answer_to_question( question )  
 		labelForAnswerTwo.text = get_wrong_answer( question )    
 	else:
