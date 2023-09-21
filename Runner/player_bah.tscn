@@ -1,18 +1,32 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7m60oh42mvy8"]
+[gd_scene load_steps=28 format=3 uid="uid://b7m60oh42mvy8"]
 
-[ext_resource type="Texture2D" uid="uid://n5xpkonfe6qo" path="res://Models/Player.png" id="1_1c07m"]
 [ext_resource type="Script" path="res://player_bah.gd" id="1_m5le0"]
-[ext_resource type="Texture2D" uid="uid://by04y8g1q0g8a" path="res://Models/black.png" id="2_wnuam"]
+[ext_resource type="Texture2D" uid="uid://n5xpkonfe6qo" path="res://Models/Player.png" id="2_c31ok"]
+[ext_resource type="Texture2D" uid="uid://dcsibgjh16182" path="res://Models/Book-Cover.png" id="3_lwhru"]
+[ext_resource type="Texture2D" uid="uid://kxsthiuf8mi2" path="res://Models/Plank.png" id="4_wirje"]
+[ext_resource type="Texture2D" uid="uid://bej0x4c2tetfs" path="res://Models/Pole.png" id="5_qr0cw"]
+[ext_resource type="Texture2D" uid="uid://du1git3k30a23" path="res://Models/Portal-2.png" id="6_s4wt1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jmg6o"]
+albedo_texture = ExtResource("2_c31ok")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bva7t"]
+load_path = "res://.godot/imported/Player.png-bb754da881a34342053c8c2b0d042eb9.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qh7hc"]
-albedo_texture = ExtResource("1_1c07m")
+albedo_texture = SubResource("CompressedTexture2D_bva7t")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_c5x63"]
+lightmap_size_hint = Vector2i(17, 14)
 material = SubResource("StandardMaterial3D_qh7hc")
-radial_segments = 8
+radial_segments = 16
+rings = 16
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g3svl"]
+load_path = "res://.godot/imported/black.png-fefac979aaa6d18662aa46db62a58dde.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6jrfj"]
-albedo_texture = ExtResource("2_wnuam")
+albedo_texture = SubResource("CompressedTexture2D_g3svl")
 
 [sub_resource type="SphereMesh" id="SphereMesh_267ve"]
 material = SubResource("StandardMaterial3D_6jrfj")
@@ -20,6 +34,51 @@ radial_segments = 8
 rings = 8
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lkx1t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dx686"]
+albedo_texture = ExtResource("3_lwhru")
+
+[sub_resource type="BoxMesh" id="BoxMesh_jpe7r"]
+size = Vector3(0.5, 0.05, 0.65)
+subdivide_width = 8
+
+[sub_resource type="BoxMesh" id="BoxMesh_rev6k"]
+size = Vector3(0.45, 0.01, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t6rgh"]
+albedo_texture = ExtResource("3_lwhru")
+
+[sub_resource type="BoxMesh" id="BoxMesh_xsyhn"]
+size = Vector3(0.45, 0.01, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uir3p"]
+albedo_texture = ExtResource("4_wirje")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_alja7"]
+bottom_radius = 0.0
+height = 1.0
+radial_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0n0oe"]
+albedo_texture = ExtResource("3_lwhru")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_i8wgd"]
+height = 3.0
+radial_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ha2t5"]
+albedo_texture = ExtResource("5_qr0cw")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_u1cqw"]
+height = 0.5
+radial_segments = 12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_msui6"]
+albedo_texture = ExtResource("6_s4wt1")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ak26y"]
+height = 0.5
+radial_segments = 12
 
 [node name="Player-bah" type="CharacterBody3D"]
 collision_mask = 6
@@ -31,6 +90,7 @@ script = ExtResource("1_m5le0")
 
 [node name="Body" type="MeshInstance3D" parent="Pivot/Character"]
 transform = Transform3D(1, 0, 0, 0, 0.667, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_jmg6o")
 mesh = SubResource("CapsuleMesh_c5x63")
 skeleton = NodePath("../../..")
 
@@ -45,3 +105,50 @@ mesh = SubResource("SphereMesh_267ve")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.68, 0, 0, 0, 1, -0.00517392, -0.00519127, -0.000443459)
 shape = SubResource("CapsuleShape3D_lkx1t")
+
+[node name="Book" type="Node3D" parent="."]
+transform = Transform3D(0.906308, -0.178606, 0.383022, 0, 0.906308, 0.422618, -0.422618, -0.383022, 0.821394, 0.7, 0, 0.4)
+
+[node name="Cover1" type="MeshInstance3D" parent="Book"]
+transform = Transform3D(0.906308, -0.422618, 0, 0.422618, 0.906308, 0, 0, 0, 1, 0.22, 0, 0)
+material_override = SubResource("StandardMaterial3D_dx686")
+mesh = SubResource("BoxMesh_jpe7r")
+
+[node name="Paper" type="MeshInstance3D" parent="Book/Cover1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_rev6k")
+
+[node name="Cover2" type="MeshInstance3D" parent="Book"]
+transform = Transform3D(0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0, 1, -0.22, 0, 0)
+material_override = SubResource("StandardMaterial3D_t6rgh")
+mesh = SubResource("BoxMesh_jpe7r")
+
+[node name="Paper2" type="MeshInstance3D" parent="Book/Cover2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_xsyhn")
+
+[node name="Pencil" type="Node3D" parent="."]
+transform = Transform3D(0.147721, -0.0260472, 0, 0.0256515, 0.145477, 0.0260472, -0.00452305, -0.0256515, 0.147721, -0.5, 0, 0.4)
+
+[node name="Head" type="MeshInstance3D" parent="Pencil"]
+material_override = SubResource("StandardMaterial3D_uir3p")
+mesh = SubResource("CylinderMesh_alja7")
+skeleton = NodePath("../..")
+
+[node name="Body" type="MeshInstance3D" parent="Pencil"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_0n0oe")
+mesh = SubResource("CylinderMesh_i8wgd")
+skeleton = NodePath("../Head")
+
+[node name="Ereaser" type="Node3D" parent="Pencil/Body"]
+
+[node name="Metal" type="MeshInstance3D" parent="Pencil/Body/Ereaser"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+material_override = SubResource("StandardMaterial3D_ha2t5")
+mesh = SubResource("CylinderMesh_u1cqw")
+
+[node name="Ereaser" type="MeshInstance3D" parent="Pencil/Body/Ereaser"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+material_override = SubResource("StandardMaterial3D_msui6")
+mesh = SubResource("CylinderMesh_ak26y")

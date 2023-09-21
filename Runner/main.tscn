@@ -1,40 +1,74 @@
-[gd_scene load_steps=16 format=3 uid="uid://d1qnkhs0aeye7"]
+[gd_scene load_steps=21 format=3 uid="uid://d1qnkhs0aeye7"]
 
-[ext_resource type="Texture2D" uid="uid://5t7exv1m7uum" path="res://Models/Grass.png" id="1_y4g1d"]
 [ext_resource type="Script" path="res://main.gd" id="1_yqevp"]
 [ext_resource type="PackedScene" uid="uid://b7m60oh42mvy8" path="res://player_bah.tscn" id="2_5uucg"]
 [ext_resource type="Script" path="res://Meshs.gd" id="2_71kqe"]
-[ext_resource type="Texture2D" uid="uid://cjtr6r85h03g" path="res://Models/Path.png" id="3_36m07"]
+[ext_resource type="Texture2D" uid="uid://cblaax0rx5pwc" path="res://Models/Sky.png" id="2_wsgrd"]
+[ext_resource type="Texture2D" uid="uid://dro2i4cy6sxvx" path="res://Models/Right-Sky.png" id="3_6yf8w"]
 [ext_resource type="PackedScene" uid="uid://bb46xgcad0jed" path="res://door.tscn" id="3_pc2xy"]
 [ext_resource type="PackedScene" uid="uid://h1870gqdj8hw" path="res://back_ground.tscn" id="3_qo6cm"]
+[ext_resource type="FontFile" uid="uid://c7jvmgixs4j0l" path="res://Models/Black_Ops_One/BlackOpsOne-Regular.ttf" id="6_7vrby"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x1485"]
+albedo_texture = ExtResource("2_wsgrd")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g5yj2"]
+size = Vector2(500, 500)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nc40l"]
+albedo_texture = ExtResource("3_6yf8w")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d12hm"]
+albedo_texture = ExtResource("2_wsgrd")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yje8b"]
 size = Vector3(100, 2, 10)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2f1wh"]
+load_path = "res://.godot/imported/Path.png-0fa4026d0af21727c8fe05343893d185.s3tc.ctex"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_focfo"]
-albedo_texture = ExtResource("3_36m07")
+albedo_texture = SubResource("CompressedTexture2D_2f1wh")
 
 [sub_resource type="BoxMesh" id="BoxMesh_goj55"]
 size = Vector3(100, 2, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ru7d1"]
-albedo_texture = ExtResource("3_36m07")
+albedo_texture = SubResource("CompressedTexture2D_2f1wh")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j3awa"]
 size = Vector3(100, 4, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b0cjn"]
-albedo_texture = ExtResource("1_y4g1d")
+[sub_resource type="Theme" id="Theme_x1iuf"]
+default_font = ExtResource("6_7vrby")
+default_font_size = 22
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_ycu3t"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1d1ws"]
-albedo_texture = ExtResource("1_y4g1d")
+[sub_resource type="Theme" id="Theme_d763w"]
+default_font = ExtResource("6_7vrby")
+default_font_size = 22
 
 [node name="Main" type="Node" node_paths=PackedStringArray("currentDoor", "questionLabel")]
 script = ExtResource("1_yqevp")
 currentDoor = NodePath("Door-1")
-questionLabel = NodePath("Math-Problem")
+questionLabel = NodePath("")
+
+[node name="Sky_Box" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 110, 0)
+
+[node name="Front" type="MeshInstance3D" parent="Sky_Box"]
+transform = Transform3D(9.43724e-08, 1.25, -5.46392e-08, 0, -5.46392e-08, -1.25, -1.25, 9.43724e-08, -4.12515e-15, -450, 125, 0)
+material_override = SubResource("StandardMaterial3D_x1485")
+mesh = SubResource("PlaneMesh_g5yj2")
+
+[node name="Right" type="MeshInstance3D" parent="Sky_Box"]
+transform = Transform3D(1.25, 1.04399e-22, -4.56341e-30, 0, -5.46392e-08, -1.25, -1.04399e-22, 1.25, -5.46392e-08, -200, 125, -250)
+material_override = SubResource("StandardMaterial3D_nc40l")
+mesh = SubResource("PlaneMesh_g5yj2")
+
+[node name="Left" type="MeshInstance3D" parent="Sky_Box"]
+transform = Transform3D(-1.25, 1.88745e-07, -8.25029e-15, 0, -5.46392e-08, -1.25, -1.88745e-07, -1.25, 5.46392e-08, -200, 125, 250)
+material_override = SubResource("StandardMaterial3D_d12hm")
+mesh = SubResource("PlaneMesh_g5yj2")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_layer = 4
@@ -44,7 +78,7 @@ collision_mask = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 shape = SubResource("BoxShape3D_yje8b")
 
-[node name="Meshs" type="Node3D" parent="Ground"]
+[node name="Meshs" type="Node3D" parent="Ground" groups=["GroundMeshes"]]
 script = ExtResource("2_71kqe")
 groundSpacing = 50.0
 
@@ -67,41 +101,21 @@ skeleton = NodePath("../..")
 
 [node name="Map Border" type="Node3D" parent="Ground/Meshs"]
 
-[node name="Right_Cylinder" type="StaticBody3D" parent="Ground/Meshs/Map Border"]
+[node name="Right_Colision" type="StaticBody3D" parent="Ground/Meshs/Map Border"]
+collision_layer = 4
+collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Meshs/Map Border/Right_Cylinder"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Meshs/Map Border/Right_Colision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 shape = SubResource("BoxShape3D_j3awa")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Ground/Meshs/Map Border/Right_Cylinder"]
-transform = Transform3D(-1.31134e-07, -50, 0, 3, -2.18557e-06, 0, 0, 0, 2, 0, -1, 5)
-material_override = SubResource("StandardMaterial3D_b0cjn")
-mesh = SubResource("CylinderMesh_ycu3t")
-skeleton = NodePath("../..")
+[node name="Left_Colision" type="StaticBody3D" parent="Ground/Meshs/Map Border"]
+collision_layer = 4
+collision_mask = 4
 
-[node name="2MeshInstance3D" type="MeshInstance3D" parent="Ground/Meshs/Map Border/Right_Cylinder"]
-transform = Transform3D(-1.31134e-07, -50, 0, 3, -2.18557e-06, 0, 0, 0, 2, -50, -1, 5)
-material_override = SubResource("StandardMaterial3D_b0cjn")
-mesh = SubResource("CylinderMesh_ycu3t")
-skeleton = NodePath("../..")
-
-[node name="Left_Cylinder" type="StaticBody3D" parent="Ground/Meshs/Map Border"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Meshs/Map Border/Left_Cylinder"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Meshs/Map Border/Left_Colision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 shape = SubResource("BoxShape3D_j3awa")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/Meshs/Map Border/Left_Cylinder"]
-transform = Transform3D(-1.31134e-07, -50, 0, 3, -2.18557e-06, 0, 0, 0, 2, 0, -1, -5)
-material_override = SubResource("StandardMaterial3D_1d1ws")
-mesh = SubResource("CylinderMesh_ycu3t")
-skeleton = NodePath("../..")
-
-[node name="2MeshInstance3D" type="MeshInstance3D" parent="Ground/Meshs/Map Border/Left_Cylinder"]
-transform = Transform3D(-1.31134e-07, -50, 0, 3, -2.18557e-06, 0, 0, 0, 2, -50, -1, -5)
-material_override = SubResource("StandardMaterial3D_1d1ws")
-mesh = SubResource("CylinderMesh_ycu3t")
-skeleton = NodePath("../..")
 
 [node name="Camera" type="Marker3D" parent="."]
 
@@ -117,27 +131,27 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 0.7
 [node name="Door-1" parent="." instance=ExtResource("3_pc2xy")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -40, 0, 2.5)
 
-[node name="Math-Problem" type="Label" parent="."]
-offset_top = 192.0
-offset_right = 192.0
-offset_bottom = 384.0
-text = "Math Label"
+[node name="Score" type="Label" parent="."]
+offset_left = 896.0
+offset_right = 1088.0
+offset_bottom = 136.0
+theme = SubResource("Theme_x1iuf")
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.54902, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "SCORE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Score" type="Label" parent="."]
-offset_left = 960.0
-offset_right = 1152.0
-offset_bottom = 136.0
-text = "SCORE"
-horizontal_alignment = 1
-
 [node name="Restart-Button" type="Button" parent="."]
+visible = false
 offset_left = 464.0
 offset_top = 424.0
 offset_right = 656.0
 offset_bottom = 512.0
+theme = SubResource("Theme_d763w")
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.54902, 1)
+theme_override_colors/font_pressed_color = Color(0.541176, 0, 0.117647, 1)
 disabled = true
 text = "Restart"
 
-[connection signal="pressed" from="Restart-Button" to="." method="restart"]
+[connection signal="pressed" from="Restart-Button" to="." method="_on_restart_button_pressed"]

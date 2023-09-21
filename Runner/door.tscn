@@ -1,30 +1,41 @@
-[gd_scene load_steps=12 format=3 uid="uid://bb46xgcad0jed"]
+[gd_scene load_steps=17 format=3 uid="uid://bb46xgcad0jed"]
 
 [ext_resource type="Script" path="res://door.gd" id="1_nh5pv"]
-[ext_resource type="Texture2D" uid="uid://bej0x4c2tetfs" path="res://Models/Pole.png" id="1_vpb45"]
+[ext_resource type="FontFile" uid="uid://c7jvmgixs4j0l" path="res://Models/Black_Ops_One/BlackOpsOne-Regular.ttf" id="2_48f3g"]
+[ext_resource type="Texture2D" uid="uid://btgcb33rmdipf" path="res://Models/Portal-1.png" id="3_wrrcb"]
+[ext_resource type="Texture2D" uid="uid://du1git3k30a23" path="res://Models/Portal-2.png" id="4_4t5v3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7p6nb"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e1mqn"]
+load_path = "res://.godot/imported/Pole.png-c2c9a1cde6837f8cb3cea7a5ac9c0510.s3tc.ctex"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_miob8"]
-albedo_texture = ExtResource("1_vpb45")
+albedo_texture = SubResource("CompressedTexture2D_e1mqn")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_qkag4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ovai"]
-albedo_texture = ExtResource("1_vpb45")
+albedo_texture = SubResource("CompressedTexture2D_e1mqn")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6btnh"]
-albedo_texture = ExtResource("1_vpb45")
+albedo_texture = SubResource("CompressedTexture2D_e1mqn")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bivtj"]
-albedo_texture = ExtResource("1_vpb45")
+albedo_texture = SubResource("CompressedTexture2D_e1mqn")
 
 [sub_resource type="SphereMesh" id="SphereMesh_d8ptq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ewvil"]
-albedo_texture = ExtResource("1_vpb45")
+albedo_texture = SubResource("CompressedTexture2D_e1mqn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_con7y"]
+albedo_texture = ExtResource("3_wrrcb")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_o8rrl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0iwlh"]
+albedo_texture = ExtResource("4_4t5v3")
 
 [node name="Door-1" type="Node3D" node_paths=PackedStringArray("labelWithAnswerOne", "labelWithAnswerTwo", "labelOneDetector", "labelTwoDetector")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
@@ -43,7 +54,11 @@ shape = SubResource("BoxShape3D_7p6nb")
 [node name="Label3D-1" type="Label3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 4, 0)
 pixel_size = 0.02
+modulate = Color(0.752941, 0.752941, 0.752941, 1)
 text = "Answer 1"
+font = ExtResource("2_48f3g")
+font_size = 60
+outline_size = 10
 
 [node name="3D-Mesh\'s" type="Node3D" parent="."]
 
@@ -79,6 +94,7 @@ skeleton = NodePath("../..")
 
 [node name="Door" type="MeshInstance3D" parent="3D-Mesh\'s"]
 transform = Transform3D(-8.74228e-08, -2, 6.55671e-08, 0, -8.74228e-08, -1.5, 2, -8.74228e-08, 2.86603e-15, 0, 1.5, 0)
+material_override = SubResource("StandardMaterial3D_con7y")
 mesh = SubResource("PlaneMesh_o8rrl")
 skeleton = NodePath("../..")
 
@@ -94,7 +110,11 @@ shape = SubResource("BoxShape3D_7p6nb")
 [node name="Label3D-2" type="Label3D" parent="Door-2/Body-2"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 4, 0)
 pixel_size = 0.02
+modulate = Color(0.752941, 0.752941, 0.752941, 1)
 text = "Answer 2"
+font = ExtResource("2_48f3g")
+font_size = 60
+outline_size = 10
 
 [node name="3D-Mesh\'s" type="Node3D" parent="Door-2/Body-2"]
 
@@ -130,5 +150,6 @@ skeleton = NodePath("../..")
 
 [node name="Door" type="MeshInstance3D" parent="Door-2/Body-2/3D-Mesh\'s"]
 transform = Transform3D(-8.74228e-08, -2, 6.55671e-08, 0, -8.74228e-08, -1.5, 2, -8.74228e-08, 2.86603e-15, 0, 1.5, 0)
+material_override = SubResource("StandardMaterial3D_0iwlh")
 mesh = SubResource("PlaneMesh_o8rrl")
 skeleton = NodePath("../..")

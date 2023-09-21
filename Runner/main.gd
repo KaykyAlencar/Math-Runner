@@ -11,19 +11,18 @@ var score:int
 
 #This is called automatically once all other nodes are added to the scene
 func _ready():
-  prepare_door()
-  currentDoor.answer_chosen.connect(on_answer_chosen)
-  restartButton.pressed.connect(restart)
+	prepare_door()
+	currentDoor.answer_chosen.connect(on_answer_chosen)
 
 func restart():
-  get_tree().change_scene_to_file("res://main.gd")
+	get_tree().change_scene_to_file("res://main.tscn")
 
 func prepare_door():
   
   #Set the question
-  questionLabel.text = currentDoor.get_random_question()
+	questionLabel.text = currentDoor.get_random_question()
 
-  currentDoor.present_question( questionLabel.text )
+	currentDoor.present_question( questionLabel.text )
   #Connect the answer signal to the reaction, but make it so it only fires once.
   #currentDoor.answer_chosen.connect(on_answer_chosen, CONNECT_ONE_SHOT)
 
@@ -31,35 +30,39 @@ func prepare_door():
 func on_answer_chosen(answer:String):
 
   #The question should still be in the label
-  var currentQuestion:String = questionLabel.text
+	var currentQuestion:String = questionLabel.text
 
   #if currentDoor.answer_chosen.is_connected( on_answer_chosen ):
    #currentDoor.answer_chosen.disconnect( on_answer_chosen )
 
-  if currentDoor.get_answer_to_question( currentQuestion ) == answer:
-   print("Correct")
+	if currentDoor.get_answer_to_question( currentQuestion ) == answer:
+		print("Correct")
    #Increase the score
-   score += 1 
+		score += 1
 
    #Transform the score to a String and place it in the label
-   scoreLabel.text = "Score: " + str(score)
+		scoreLabel.text = "Score: " + str(score)
 
 
-  else:
-   print("Wrong")
-   get_tree().change_scene_to_file("res://main.tscn")
-   restartButton.show()
-   restartButton.disabled = false
+	else:
+		print("Wrong")
+		restartButton.show()
+		restartButton.disabled = false
+		$"Player-bah".set_physics_process(false)
+		$"Door-1".set_process(false)
+		for mesh in get_tree().get_nodes_in_group("GroundMeshes"):
+			mesh.set_process(false)
 
   #Depending on how the stage moves, you may have to change the shift in position
   #This just moves it "forward" by 40 units.
-  currentDoor.position += Vector3.LEFT * 40
+	currentDoor.position += Vector3.LEFT * 40
 
   #Prepare the next set of doors as well as the question.
-  prepare_door()
+	prepare_door()
 
 
 
 
 func _on_restart_button_pressed():
-  pass # Replace with function body.
+	restart()
+	pass # Replace with function body.
